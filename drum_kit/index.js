@@ -2,7 +2,8 @@ const allBtn = document.querySelectorAll('button');
 const conjuntoDeLetras = ['w','a','s','d','j','k','l']
 
 
-function tocarSom(letra) {
+function tocarSomEfazerAnimacao(letra) {
+  //tocar som
   switch (letra) {
     case 'w':
       const tom1 = new Audio('./sounds/tom-1.mp3');
@@ -37,16 +38,21 @@ function tocarSom(letra) {
       console.log("Tecla sem som configurado: " + letra);
       break;
   }
+  //fazer animação
+  const btnSelector = `button.${letra}`;
+  const btn = document.querySelector(btnSelector);
+  btn.classList.add('pressed');
+  setTimeout(()=>btn.classList.remove('pressed'),100)
 }
 
 
 function handleEvent(evt) {
   if(evt.type==='keydown' && conjuntoDeLetras.includes(evt.key)){
-    tocarSom(evt.key)
-  }else{
+    tocarSomEfazerAnimacao(evt.key)
+  }else if(evt.type==='click'){
     const btnClicado = evt.target;
     const letraEscolhida = btnClicado.textContent;
-    tocarSom(letraEscolhida)
+    tocarSomEfazerAnimacao(letraEscolhida)
   }
 }
 
